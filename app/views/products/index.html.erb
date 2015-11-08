@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Lista de Productos</h1>
+<br>
+
+<table>
+  <thead>
+    <tr>
+      <th>  Nombre  </th>
+      <th>  Descripcion  </th>
+      <th>  Imagen url  </th>
+      <th>  Precio  </th>
+      <th>  Categoria  </th>
+      <th>  Subcategoria  </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.description %></td>
+        <td><%= product.image_url %></td>
+        <td><%= product.price %></td>
+        <td><%= product.category %></td>
+        <td><%= product.subcategory %></td>
+        <% if user_signed_in? %>
+        <td><pre><%= link_to '  Mostrar  ', product %></pre></td>
+        <td><pre><%= link_to 'Editar', edit_product_path(product) %></pre></td>
+        <td><pre><%= link_to 'Eliminar', product, method: :delete, data: { confirm: 'Are you sure?' } %></pre></td>
+        <td><pre><a href="/cart/<%= product.id %>"> Add to Cart </a></pre></td>
+        <%else %>
+        <td><pre><a href="/products">   Add to Cart </a></pre></td>
+        <%end %>
+      </tr>
+
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+ <% if user_signed_in? %>
+    <%= link_to 'Agregar Nuevo Producto', new_product_path %>
+    <br> <br>
+    <a href="/cart">   Ver Carrito </a>
+ <%else %>
+
+ <%end %>
+
